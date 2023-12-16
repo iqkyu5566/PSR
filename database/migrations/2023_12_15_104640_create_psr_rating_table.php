@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('psr_rating', function (Blueprint $table) {
             $table->id();
             $table->integer('rating');
-
+            $table->unsignedBigInteger('pemesanan_id');
             $table->foreign('pemesanan_id')
                 ->references('id')
                 ->on('pemesanan');
 
+            $table->uuid('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
