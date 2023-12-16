@@ -15,18 +15,19 @@ return new class extends Migration
             $table->id();
             $table->integer('harga');
             $table->dateTime('tanggal_pengerjaan');
-            $table->tinyInteger('status');
+            $table->enum('status', ['Menunggu', 'Ditolak', 'Diproses', 'Selesai']);
 
+            $table->uuid('pemilik_id');
             $table->foreign('pemilik_id')
                 ->references('id')
-                ->on('users')
-                ->where('user_role_id', 3);
+                ->on('users')->comment('Untuk menentukan pemilik pemesanan');
 
+            $table->uuid('psr_id');
             $table->foreign('psr_id')
                 ->references('id')
-                ->on('users')
-                ->where('user_role_id', 4);
+                ->on('users')->comment('Untuk menentukan psr');
 
+            $table->unsignedBigInteger('produk_id');
             $table->foreign('produk_id')
                 ->references('id')
                 ->on('produk');
